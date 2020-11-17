@@ -1,15 +1,17 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import styleBtn from '../css/add-to-cart-btn.module.css';
 
-class Product extends Component {
-    
+class Product extends Component {    
+    constructor(props) {
+        super(props);
+    }
+
     /*
     *Add object to cart by Hooks
     */
     addCart(record) {
         record.inCart =  true;
-        console.log(record);
-        this.setState({inCart: true});
+        this.props.updateStateCart(record)
     }
 
     /*
@@ -17,8 +19,6 @@ class Product extends Component {
     */
     removeCart(record) {
         record.inCart =  false;
-        console.log(record);
-        this.setState({inCart: false});
     }
 
 
@@ -31,31 +31,19 @@ class Product extends Component {
             borderRadius: "6px",
             backgroundColor: 'bisque',
         };
-
-        // const [sampleState, setState] = useState('hello world');
-
         return (
-        <div style={productCard}>
-            <div>In cart: {String(this.props.record.inCart)}</div>
-            <hr></hr>
-            <h3>{this.props.record.name}</h3>
-            <div>Tracks:{this.props.record.tracks} | Price: {this.props.record.price}</div>
-            <div className={styleBtn.btnAdd}>
-                <button onClick={this.addCart.bind(this, this.props.record)}>Add to cart</button>
-            </div>
-            <div className={styleBtn.btnRemove}>
-                <button onClick={this.removeCart.bind(this, this.props.record)}>Remove from cart</button>
-            </div>
-            {/* {this.props.record.inCart ? (
+            <div style={productCard}>
+                <div>In cart: {String(this.props.record.inCart)}</div>
+                <hr></hr>
+                <h3>{this.props.record.name}</h3>
+                <div>Tracks:{this.props.record.tracks} | Price: {this.props.record.price}</div>
                 <div className={styleBtn.btnAdd}>
                     <button onClick={this.addCart.bind(this, this.props.record)}>Add to cart</button>
                 </div>
-            ) : (
                 <div className={styleBtn.btnRemove}>
                     <button onClick={this.removeCart.bind(this, this.props.record)}>Remove from cart</button>
                 </div>
-            )} */}
-        </div>
+            </div>
         );
     }
 }
